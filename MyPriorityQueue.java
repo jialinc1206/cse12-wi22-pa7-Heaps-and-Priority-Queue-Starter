@@ -7,7 +7,10 @@ import java.util.Collection;
  */
 public class MyPriorityQueue<E extends Comparable<E>>
 {
-    protected /** TODO **/ heap;
+    /**
+     * TODO: Add a public instance variable called "heap" 
+     * of a generic MyMinHeap type 
+    */
 
     
     /**
