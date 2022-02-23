@@ -1,12 +1,21 @@
 /**
- * TODO: Add file header
+ * TODO: Add your file header
+ * Name:
+ * ID:
+ * Email:
+ * Sources used: Put "None" if you did not have any external help
+ * Some example of sources used would be Tutors, Zybooks, and Lecture Slides
+ * 
+ * 2-4 sentence file description here
  */
+
 import java.util.HashMap;
 
 
 /**
  * This class creates a Ticket object to be used as a 
- * node for a priority queue. Contains a static HashMap 
+ * node for a priority queue. Contains a static HashMap to maintain
+ * the priority ordering.
  */
 public class Ticket implements Comparable<Ticket>{
 
@@ -24,18 +33,14 @@ public class Ticket implements Comparable<Ticket>{
     public static HashMap<String, Integer> orderMap;
     
     
-    String studentName; //Name of the student that created the ticket
-    String ticketType; //The type of the ticket. Type can be “Environment setup”
-    //, “Debugging”, “Conceptual Doubt”, or “Others”
+    String studentName;
+    String ticketType;
     
-    String ticketStatus;//The status of the ticket in the Queue.
-    //The status can be “Waiting”, “Accepted”, or “Resolved”. 
-    //The initial status of a ticket is always “Waiting”.
-        
-    Long createdAt;//The time at which the ticket was created
-    Long resolvedAt; //The time at which the ticket was resolved
-    int ticketNumber; //Unique ID at time of creation.
-    //This does not impact the priority. 
+    String ticketStatus;
+    
+    Long createdAt;
+    Long resolvedAt; 
+    int ticketNumber; 
     
     /**
      * Constructor that initializes a Ticket with the name of the 
@@ -60,7 +65,7 @@ public class Ticket implements Comparable<Ticket>{
     
     /**
      * Sets the ticket's status in the Queue
-     * The status can be “Waiting”, “Accepted”, or “Resolved”.
+     * The status can be Waiting, Accepted, or Resolved.
      * @param ticketStatus Current status of the ticket in queue
      */
     public void setTicketStatus(String ticketStatus) {
@@ -69,8 +74,8 @@ public class Ticket implements Comparable<Ticket>{
 
     /**
      * Sets the type of the ticket.
-     * Type can be “Environment setup”, 
-     * “Debugging”, “Conceptual Doubt”, or “Others”
+     * Type can be Environment setup, 
+     * Debugging, Conceptual Doubt, or Others
      * @param ticketType Type of the ticket
      */
     public void setTicketType(String ticketType) {
@@ -163,6 +168,7 @@ public class Ticket implements Comparable<Ticket>{
     @Override
     public int compareTo(Ticket other){
         //TODO: Your code
+        return 0;
 
     }
  
