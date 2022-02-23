@@ -1,12 +1,12 @@
-import java.util.Date;
-import java.text.SimpleDateFormat;
+/**
+ * TODO: Add file header
+ */
 import java.util.HashMap;
 
 
 /**
- * This class creats a Ticket object to be used as a 
- * node for a priority queue
- * @author sanjana
+ * This class creates a Ticket object to be used as a 
+ * node for a priority queue. Contains a static HashMap 
  */
 public class Ticket implements Comparable<Ticket>{
 
@@ -21,7 +21,7 @@ public class Ticket implements Comparable<Ticket>{
     public static final String RESOLVED = "Resolved";
     public static final String DATE_FORMAT = "HH:mm:ss";
     
-    public static HashMap<String, Integer> priorityMap;
+    public static HashMap<String, Integer> orderMap;
     
     String studentName;
     String ticketType;
@@ -90,13 +90,16 @@ public class Ticket implements Comparable<Ticket>{
         return resolvedAt;
     }
     
-    public static void setPriorityMap(HashMap<String, Integer> priorityMap){
-        Ticket.priorityMap = priorityMap;
+    public static void setOrderMap(HashMap<String, Integer> orderMap){
+        Ticket.orderMap = orderMap;
     }
     
-    //TODO:
+    /**
+     * TODO: Method Header
+     */
     @Override
     public int compareTo(Ticket other){
+        //TODO: Your code
 
     }
  

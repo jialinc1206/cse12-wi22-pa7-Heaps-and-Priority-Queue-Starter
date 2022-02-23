@@ -1,16 +1,17 @@
-import java.util.Collection;
 /**
- * Priority Queue implementation with MinHeap, where 
- * (a.compareTo(b) > 0) means b has a higher priority than a.
- * @author Yingxi Lin
- * @author Charles Tianchen Yu
+ * TODO: Add File Header
+ */
+
+import java.util.Collection;
+
+/**
+ * TODO: Add Class Header
  */
 public class MyPriorityQueue<E extends Comparable<E>>
 {
-    /**
-     * TODO: Add a public instance variable called "heap" 
-     * of a generic MyMinHeap type 
-    */
+
+    //TODO: Add a public instance variable called "heap"
+    //"heap" is of a generic MyMinHeap type
 
     
     /**
@@ -22,13 +23,14 @@ public class MyPriorityQueue<E extends Comparable<E>>
 
     /**
      * Constructor that creates a priority queue from a collection
+     * @param collection The collection used to intialize priority queue
      */
     public MyPriorityQueue(Collection<? extends E> collection){
         heap = new MyMinHeap<>(collection);
     }
 
     /**
-     * Adds an element to the pq
+     * Adds an element to the priority queue
      * @param element the element to be added
      */
     public void push(E element){
@@ -36,7 +38,7 @@ public class MyPriorityQueue<E extends Comparable<E>>
     }
 
     /**
-     * Removes the element with the highest priority from the pq 
+     * Removes the element with the highest priority from the priority queue 
      * @return the element with the highest priority
      */
     public E pop(){
@@ -44,7 +46,7 @@ public class MyPriorityQueue<E extends Comparable<E>>
     }
 
     /**
-     * Sees the element with the highest priority from the pq
+     * Sees the element with the highest priority from the priority queue
      * @return the element with the highest priority
      */
     public E peek(){
@@ -52,8 +54,8 @@ public class MyPriorityQueue<E extends Comparable<E>>
     }
 
     /**
-     * Finds the number of elements in the pq
-     * @return the number of elements in the pq
+     * Finds the number of elements in the priority queue
+     * @return the number of elements in the priority queue
      */
     public int getLength(){
         return heap.size();

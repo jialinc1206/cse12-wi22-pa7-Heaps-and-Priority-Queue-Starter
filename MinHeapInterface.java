@@ -1,5 +1,5 @@
 /**
- * An interface that specifid the functionality of a Min Heap
+ * An interface that specifies the functionality of a Min Heap
  */
 public interface MinHeapInterface<E extends Comparable<E>>{
 
