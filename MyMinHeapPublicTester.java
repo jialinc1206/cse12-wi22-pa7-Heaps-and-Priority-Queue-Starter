@@ -12,7 +12,7 @@ import java.util.Arrays;
 /**
  * This class contains public test cases for MyMinHeap and MyPriorityQueue
  */
-public class PublicTester {
+public class MyMinHeapPublicTester {
 
     // ===================== MyMinHeap Public Tests =====================
 

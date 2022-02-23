@@ -37,10 +37,9 @@ public class Autograder extends javax.swing.JFrame {
     public static final int THIRD_PRIORITY = 3;
     public static final int FOURTH_PRIORITY = 4;
     
-    //TODO: Add PQ
-    MyPriorityQueue<Ticket> ticketQueue;
-    HashMap<String, Integer> priorityMap;
-    
+
+
+    MyPriorityQueue<Ticket> ticketQueue;    
     
     
     ArrayList<Ticket> tickets;
@@ -58,7 +57,6 @@ public class Autograder extends javax.swing.JFrame {
         ticketQueue = new MyPriorityQueue<>();
         tickets = new ArrayList<>();
         historyStack = new Stack<>();
-        priorityMap = new HashMap<String, Integer>();
         seconds = Long.valueOf("0");
         createTicketsList();
         startClock();
@@ -68,14 +66,14 @@ public class Autograder extends javax.swing.JFrame {
     }
     
     
-    //TODO: priority set up
+    //TODO: Play around with different priorities for different ticket types
     public void setTicketTypePriority(){
-        HashMap<String, Integer> priorityMap = new HashMap<>();
-        priorityMap.put(Ticket.ENVIRONMENT_SETUP, Autograder.FIRST_PRIORITY);
-        priorityMap.put(Ticket.DEBUGGING, Autograder.SECOND_PRIORITY);
-        priorityMap.put(Ticket.CONCEPT_DOUBTS, Autograder.THIRD_PRIORITY);
-        priorityMap.put(Ticket.OTHERS, Autograder.FOURTH_PRIORITY);
-        Ticket.setPriorityMap(priorityMap);
+        HashMap<String, Integer> orderMap = new HashMap<>();
+        orderMap.put(Ticket.ENVIRONMENT_SETUP, Autograder.FIRST_PRIORITY);
+        orderMap.put(Ticket.DEBUGGING, Autograder.SECOND_PRIORITY);
+        orderMap.put(Ticket.CONCEPT_DOUBTS, Autograder.THIRD_PRIORITY);
+        orderMap.put(Ticket.OTHERS, Autograder.FOURTH_PRIORITY);
+        Ticket.setOrderMap(orderMap);
     }
     
     
@@ -236,8 +234,6 @@ public class Autograder extends javax.swing.JFrame {
         JLabel ticketType = new JLabel(String.format(Autograder
                 .TYPE_LABEL, ticket.getTicketType())); 
         
-        //int timeInSeconds = (int)(ticket.ticketCreated.getTime()
-          //      /Autograder.SECONDS_CONVERSION);
         
         JLabel ticketCreated = new JLabel(String
                 .format(Autograder.TICKET_CREATED_AT_LABEL, 
@@ -246,8 +242,6 @@ public class Autograder extends javax.swing.JFrame {
         JLabel ticketCreatedNumber = new JLabel(String.format(Autograder
                 .TICKET_NUMBER_LABEL, ticket.getTicketNumber()));
         
-        //timeInSeconds = (int)(ticket.resolvedAt.getTime()/
-         //                       Autograder.SECONDS_CONVERSION);
         JLabel ticketResolved = new JLabel(String
                 .format(Autograder.TICKET_RESOLVED_AT_LABEL, 
                 ticket.getResolvedAt()));
@@ -430,77 +424,101 @@ public class Autograder extends javax.swing.JFrame {
         setForeground(java.awt.Color.white);
         setResizable(false);
 
-        ESLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 11)); // NOI18N
+        ESLabel.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 1, 11)); // NOI18N
         ESLabel.setForeground(new java.awt.Color(51, 51, 51));
         ESLabel.setText("Environment setup: ");
 
-        debuggingLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 11)); // NOI18N
+        debuggingLabel.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 1, 11)); // NOI18N
         debuggingLabel.setForeground(new java.awt.Color(51, 51, 51));
         debuggingLabel.setText("Debugging:");
 
-        conceptLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 11)); // NOI18N
+        conceptLabel.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 1, 11)); // NOI18N
         conceptLabel.setForeground(new java.awt.Color(51, 51, 51));
         conceptLabel.setText("Conceptual:");
 
-        othersLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 11)); // NOI18N
+        othersLabel.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 1, 11)); // NOI18N
         othersLabel.setForeground(new java.awt.Color(51, 51, 51));
         othersLabel.setText("Others:");
 
         resolvedTicketsPanel.setBackground(new java.awt.Color(255, 255, 255));
-        resolvedTicketsPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        resolvedTicketsPanel.setBorder(
+            javax.swing.BorderFactory
+            .createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        javax.swing.GroupLayout resolvedTicketsPanelLayout = new javax.swing.GroupLayout(resolvedTicketsPanel);
+        javax.swing.GroupLayout resolvedTicketsPanelLayout 
+        = new javax.swing.GroupLayout(resolvedTicketsPanel);
         resolvedTicketsPanel.setLayout(resolvedTicketsPanelLayout);
         resolvedTicketsPanelLayout.setHorizontalGroup(
-            resolvedTicketsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            resolvedTicketsPanelLayout
+            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 340, Short.MAX_VALUE)
         );
         resolvedTicketsPanelLayout.setVerticalGroup(
-            resolvedTicketsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            resolvedTicketsPanelLayout
+            .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 414, Short.MAX_VALUE)
         );
 
-        resolvedTicketsTitle.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 14)); // NOI18N
+        resolvedTicketsTitle.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 1, 14)); // NOI18N
         resolvedTicketsTitle.setForeground(new java.awt.Color(51, 51, 51));
-        resolvedTicketsTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        resolvedTicketsTitle.setHorizontalAlignment(
+            javax.swing.SwingConstants.CENTER);
         resolvedTicketsTitle.setText("Resolved Tickets");
 
-        ticketsResolvedLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 12)); // NOI18N
+        ticketsResolvedLabel.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 1, 12)); // NOI18N
         ticketsResolvedLabel.setForeground(new java.awt.Color(51, 51, 51));
         ticketsResolvedLabel.setText("Tickets Resolved:");
 
-        ticketsInQueueLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 12)); // NOI18N
+        ticketsInQueueLabel.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 1, 12)); // NOI18N
         ticketsInQueueLabel.setForeground(new java.awt.Color(51, 51, 51));
         ticketsInQueueLabel.setText("Tickets in Queue:");
 
-        estimatedWaitTimeTitle.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 12)); // NOI18N
+        estimatedWaitTimeTitle.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 1, 12)); // NOI18N
         estimatedWaitTimeTitle.setForeground(new java.awt.Color(51, 51, 51));
         estimatedWaitTimeTitle.setText("Estimated Wait Times (in seconds)");
 
-        ESTimeLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 2, 11)); // NOI18N
+        ESTimeLabel.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 2, 11)); // NOI18N
         ESTimeLabel.setForeground(new java.awt.Color(51, 51, 51));
         ESTimeLabel.setText("0 s");
 
-        DebugTimeLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 2, 11)); // NOI18N
+        DebugTimeLabel.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 2, 11)); // NOI18N
         DebugTimeLabel.setForeground(new java.awt.Color(51, 51, 51));
         DebugTimeLabel.setText("0 s");
 
-        ConceptTimeLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 2, 11)); // NOI18N
+        ConceptTimeLabel.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 2, 11)); // NOI18N
         ConceptTimeLabel.setForeground(new java.awt.Color(51, 51, 51));
         ConceptTimeLabel.setText("0 s");
 
-        OthersTimeLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 2, 11)); // NOI18N
+        OthersTimeLabel.setFont(
+            new java.awt.Font("Lucida Sans Typewriter", 2, 11)); // NOI18N
         OthersTimeLabel.setForeground(new java.awt.Color(51, 51, 51));
         OthersTimeLabel.setText("0 s");
 
-        javax.swing.GroupLayout analyticsPanelLayout = new javax.swing.GroupLayout(analyticsPanel);
+        javax.swing.GroupLayout analyticsPanelLayout = 
+        new javax.swing.GroupLayout(analyticsPanel);
         analyticsPanel.setLayout(analyticsPanelLayout);
         analyticsPanelLayout.setHorizontalGroup(
-            analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            analyticsPanelLayout.createParallelGroup(
+                javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(analyticsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(resolvedTicketsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(resolvedTicketsPanel, 
+                javax.swing.GroupLayout.PREFERRED_SIZE,
+                 javax.swing.GroupLayout.DEFAULT_SIZE, 
+                 javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(analyticsPanelLayout
+                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(analyticsPanelLayout.createSequentialGroup()
                         .addGap(343, 343, 343)
                         .addComponent(OthersWaitTime))
@@ -515,21 +533,34 @@ public class Autograder extends javax.swing.JFrame {
                         .addComponent(ESWaitTime))
                     .addGroup(analyticsPanelLayout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(analyticsPanelLayout
+                        .createParallelGroup(javax
+                        .swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ticketsResolvedLabel)
                             .addComponent(ticketsInQueueLabel)
-                            .addGroup(analyticsPanelLayout.createSequentialGroup()
-                                .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, analyticsPanelLayout.createSequentialGroup()
+                            .addGroup(analyticsPanelLayout
+                            .createSequentialGroup()
+                                .addGroup(analyticsPanelLayout
+                                .createParallelGroup(javax.swing
+                                .GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment
+                                    .TRAILING, analyticsPanelLayout
+                                    .createSequentialGroup()
                                         .addComponent(ESLabel)
                                         .addGap(18, 18, 18))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, analyticsPanelLayout.createSequentialGroup()
-                                        .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout
+                                    .Alignment.TRAILING, analyticsPanelLayout
+                                    .createSequentialGroup()
+                                        .addGroup(analyticsPanelLayout
+                                        .createParallelGroup(javax.swing
+                                        .GroupLayout.Alignment.TRAILING)
                                             .addComponent(debuggingLabel)
                                             .addComponent(conceptLabel)
                                             .addComponent(othersLabel))
                                         .addGap(26, 26, 26)))
-                                .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(analyticsPanelLayout
+                                .createParallelGroup(javax.swing.GroupLayout
+                                .Alignment.LEADING)
                                     .addComponent(OthersTimeLabel)
                                     .addComponent(DebugTimeLabel)
                                     .addComponent(ConceptTimeLabel)
@@ -545,9 +576,11 @@ public class Autograder extends javax.swing.JFrame {
                 .addComponent(resolvedTicketsTitle))
         );
         analyticsPanelLayout.setVerticalGroup(
-            analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            analyticsPanelLayout.createParallelGroup(
+                javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(analyticsPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
+                 Short.MAX_VALUE)
                 .addComponent(ticketsInQueueLabel)
                 .addGap(18, 18, 18)
                 .addComponent(ticketsResolvedLabel)
@@ -560,42 +593,57 @@ public class Autograder extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(DebugWaitTime)
                 .addGap(14, 14, 14)
-                .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(analyticsPanelLayout.createParallelGroup(
+                    javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ESLabel)
                     .addComponent(ESTimeLabel))
                 .addGap(16, 16, 16)
                 .addComponent(ConceptWaitTime)
                 .addGap(14, 14, 14)
-                .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(analyticsPanelLayout.createParallelGroup(
+                    javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(debuggingLabel)
                     .addComponent(DebugTimeLabel))
                 .addGap(15, 15, 15)
                 .addComponent(OthersWaitTime)
                 .addGap(15, 15, 15)
-                .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(analyticsPanelLayout.createParallelGroup(
+                    javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(conceptLabel)
                     .addComponent(ConceptTimeLabel))
                 .addGap(31, 31, 31)
-                .addGroup(analyticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(analyticsPanelLayout.createParallelGroup(
+                    javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(othersLabel)
                     .addComponent(OthersTimeLabel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, 
+                Short.MAX_VALUE))
             .addGroup(analyticsPanelLayout.createSequentialGroup()
                 .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(resolvedTicketsTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(resolvedTicketsTitle, 
+                javax.swing.GroupLayout.PREFERRED_SIZE, 22,
+                 javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resolvedTicketsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(resolvedTicketsPanel,
+                 javax.swing.GroupLayout.PREFERRED_SIZE, 
+                 javax.swing.GroupLayout.DEFAULT_SIZE, 
+                 javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        autograderSimulationLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 18)); // NOI18N
-        autograderSimulationLabel.setForeground(new java.awt.Color(51, 51, 51));
-        autograderSimulationLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        autograderSimulationLabel.setFont(new java.awt.Font(
+            "Lucida Sans Typewriter", 1, 18)); // NOI18N
+        autograderSimulationLabel.setForeground(new java.awt.Color(
+            51, 51, 51));
+        autograderSimulationLabel.setHorizontalAlignment(javax.swing
+        .SwingConstants.CENTER);
         autograderSimulationLabel.setText("Autograder Simulation");
 
-        startButton.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 14)); // NOI18N
+        startButton.setFont(new java.awt.Font("Lucida Sans Typewriter"
+        , 1, 14)); // NOI18N
         startButton.setForeground(new java.awt.Color(51, 51, 51));
         startButton.setText("Start");
-        startButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        startButton.setBorder(javax.swing.BorderFactory.createBevelBorder(
+            javax.swing.border.BevelBorder.RAISED));
         startButton.setFocusPainted(false);
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -603,72 +651,113 @@ public class Autograder extends javax.swing.JFrame {
             }
         });
 
-        timeLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 11)); // NOI18N
+        timeLabel.setFont(new java.awt.Font("Lucida Sans Typewriter", 
+        1, 11)); // NOI18N
         timeLabel.setForeground(new java.awt.Color(102, 102, 102));
         timeLabel.setText("Time:");
 
         ticketPanel.setBackground(new java.awt.Color(255, 255, 255));
-        ticketPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        ticketPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(
+            javax.swing.border.BevelBorder.LOWERED));
 
-        javax.swing.GroupLayout ticketPanelLayout = new javax.swing.GroupLayout(ticketPanel);
+        javax.swing.GroupLayout ticketPanelLayout = new javax
+        .swing.GroupLayout(ticketPanel);
         ticketPanel.setLayout(ticketPanelLayout);
         ticketPanelLayout.setHorizontalGroup(
-            ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            ticketPanelLayout.createParallelGroup(javax
+            .swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 340, Short.MAX_VALUE)
         );
         ticketPanelLayout.setVerticalGroup(
-            ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            ticketPanelLayout.createParallelGroup(javax
+            .swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 417, Short.MAX_VALUE)
         );
 
-        ticketQueueTitle.setFont(new java.awt.Font("Lucida Sans Typewriter", 1, 14)); // NOI18N
+        ticketQueueTitle.setFont(new java.awt.Font("Lucida Sans Typewriter",
+         1, 14)); // NOI18N
         ticketQueueTitle.setForeground(new java.awt.Color(51, 51, 51));
         ticketQueueTitle.setText("Ticket Queue");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing
+        .GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            layout.createParallelGroup(javax.swing
+            .GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment
+            .TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax
+                .swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(324, 324, 324)
                         .addComponent(autograderSimulationLabel)
                         .addGap(18, 18, 18)
-                        .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(startButton, 
+                        javax.swing.GroupLayout.PREFERRED_SIZE,
+                         58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing
+                        .LayoutStyle.ComponentPlacement.RELATED, 
+                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(timeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(clockTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing
+                        .LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clockTimeLabel, 
+                        javax.swing.GroupLayout.PREFERRED_SIZE, 
+                        78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax
+                        .swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(42, 42, 42)
-                                .addComponent(ticketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(ticketPanel,
+                                 javax.swing.GroupLayout.PREFERRED_SIZE,
+                                  javax.swing.GroupLayout.DEFAULT_SIZE, 
+                                  javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(146, 146, 146)
                                 .addComponent(ticketQueueTitle)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(analyticsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle
+                        .ComponentPlacement.RELATED, 
+                        14, Short.MAX_VALUE)
+                        .addComponent(analyticsPanel,
+                         javax.swing.GroupLayout.PREFERRED_SIZE,
+                          659, 
+                          javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            layout.createParallelGroup(javax.swing
+            .GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout
+            .Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(autograderSimulationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax
+                .swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(autograderSimulationLabel, 
+                    javax.swing.GroupLayout.DEFAULT_SIZE, 
+                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(startButton, 
+                    javax.swing.GroupLayout.PREFERRED_SIZE, 
+                    29, 
+                    javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(timeLabel)
                     .addComponent(clockTimeLabel))
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax
+                .swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ticketQueueTitle)
                         .addGap(11, 11, 11)
-                        .addComponent(ticketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(analyticsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ticketPanel, 
+                        javax.swing.GroupLayout.PREFERRED_SIZE, 
+                        javax.swing.GroupLayout.DEFAULT_SIZE, 
+                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(analyticsPanel, 
+                    javax.swing.GroupLayout.PREFERRED_SIZE, 
+                    javax.swing.GroupLayout.DEFAULT_SIZE, 
+                    javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40))
         );
 
