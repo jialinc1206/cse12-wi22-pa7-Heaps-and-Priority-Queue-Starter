@@ -506,7 +506,7 @@ public class PublicTester {
         priorityMap.put(Ticket.DEBUGGING, Autograder.SECOND_PRIORITY);
         priorityMap.put(Ticket.CONCEPT_DOUBTS, Autograder.THIRD_PRIORITY);
         priorityMap.put(Ticket.OTHERS, Autograder.FOURTH_PRIORITY);
-        Ticket.setPriorityMap(priorityMap);
+        Ticket.setOrderMap(priorityMap);
         Ticket tk1 = new Ticket("Chris", Ticket.ENVIRONMENT_SETUP);
         Ticket tk2 = new Ticket("Bruce", Ticket.CONCEPT_DOUBTS);
         Ticket tk3 = new Ticket("Alice", Ticket.DEBUGGING);
@@ -538,7 +538,7 @@ public class PublicTester {
         priorityMap.put(Ticket.CONCEPT_DOUBTS, Autograder.SECOND_PRIORITY);
         priorityMap.put(Ticket.ENVIRONMENT_SETUP, Autograder.THIRD_PRIORITY);
         priorityMap.put(Ticket.OTHERS, Autograder.FOURTH_PRIORITY);
-        Ticket.setPriorityMap(priorityMap);
+        Ticket.setOrderMap(priorityMap);
         Ticket tk1 = new Ticket("Chris", Ticket.ENVIRONMENT_SETUP);
         Ticket tk2 = new Ticket("Bruce", Ticket.CONCEPT_DOUBTS);
         Ticket tk3 = new Ticket("Alice", Ticket.DEBUGGING);
@@ -572,13 +572,49 @@ public class PublicTester {
         priorityMap.put(Ticket.CONCEPT_DOUBTS, Autograder.SECOND_PRIORITY);
         priorityMap.put(Ticket.ENVIRONMENT_SETUP, Autograder.THIRD_PRIORITY);
         priorityMap.put(Ticket.OTHERS, Autograder.FOURTH_PRIORITY);
-        Ticket.setPriorityMap(priorityMap);
+        Ticket.setOrderMap(priorityMap);
 
         Ticket tk1 = new Ticket("Chris", Ticket.ENVIRONMENT_SETUP);
         Ticket tk2 = new Ticket("Bruce", Ticket.ENVIRONMENT_SETUP);
         Ticket tk3 = new Ticket("Alice", Ticket.ENVIRONMENT_SETUP);
         Ticket tkE = new Ticket("Sophia", Ticket.ENVIRONMENT_SETUP);
 
+        tk1.setCreatedAt(new Long(3));
+        tk2.setCreatedAt(new Long(2));
+        tk3.setCreatedAt(new Long(1));
+        tkE.setCreatedAt(new Long(1));
+
+        assertTrue(
+            "tk1 should come after tk2", tk1.compareTo(tk2) > 0
+        );
+        assertTrue(
+            "tk3 should come before tk1", tk3.compareTo(tk1) < 0
+        );
+        assertTrue(
+            "tkE should be the same order of tk3", tkE.compareTo(tk3) == 0
+        );
+    }
+
+    /** Test the Ticket compareTo function
+     *  When the priority are the same
+    */
+    @Test
+    public void testTicketOrder4() {
+
+        // priority should not matter in this case
+        HashMap<String, Integer> priorityMap = new HashMap<>();
+        priorityMap.put(Ticket.DEBUGGING, Autograder.FIRST_PRIORITY);
+        priorityMap.put(Ticket.CONCEPT_DOUBTS, Autograder.FIRST_PRIORITY);
+        priorityMap.put(Ticket.ENVIRONMENT_SETUP, Autograder.FIRST_PRIORITY);
+        priorityMap.put(Ticket.OTHERS, Autograder.FIRST_PRIORITY);
+        Ticket.setOrderMap(priorityMap);
+
+        Ticket tk1 = new Ticket("Chris", Ticket.ENVIRONMENT_SETUP);
+        Ticket tk2 = new Ticket("Bruce", Ticket.DEBUGGING);
+        Ticket tk3 = new Ticket("Alice", Ticket.CONCEPT_DOUBTS);
+        Ticket tkE = new Ticket("Sophia", Ticket.OTHERS);
+
+        //Time should matter
         tk1.setCreatedAt(new Long(3));
         tk2.setCreatedAt(new Long(2));
         tk3.setCreatedAt(new Long(1));
