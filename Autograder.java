@@ -1,3 +1,7 @@
+/**
+ * Simulation of Autograder Ticket System. 
+ * Used for PA7 Part 2 in CSE 12
+ */
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +13,10 @@ import java.awt.event.*;
 import java.util.HashMap;
 import javax.swing.border.BevelBorder;
 
+/**
+ * Represents the Autograder Ticket System with a Ticket Priority Queue,
+ * Resolved Tickets stack and other Queue Statistics
+ */
 public class Autograder extends javax.swing.JFrame {
 
     public static final int BUSY = 1;
