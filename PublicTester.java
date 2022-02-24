@@ -200,27 +200,21 @@ public class PublicTester {
     @Test
     public void testMinHeapInsert() {
         MyMinHeap<Integer> heap = new MyMinHeap<>();
-        heap.data = new ArrayList<>(Arrays.asList(new Integer[]{1,2,3,4,5}));
-        Integer ele = new Integer(0);
-        heap.insert(ele);
-
-
-        // MyMinHeap<Integer> heap = new MyMinHeap<>();
-        // ArrayList<Integer> startingList = new ArrayList<Integer>(
-        //     Arrays.asList(
-        //         new Integer[] { 11, 12, 13 }
-        //     )
-        // );
-        // initMinHeap(heap, startingList);
-        // heap.insert(11);
-        // Integer[] expected = { 11, 11, 13, 12 };
-        // for (int i = 0; i < 4; i++) {
-        //     assertEquals(
-        //         "Heap after inserting 11. ", 
-        //         expected[i], 
-        //         heap.data.get(i)
-        //     );
-        // }
+        ArrayList<Integer> startingList = new ArrayList<Integer>(
+            Arrays.asList(
+                new Integer[] { 11, 12, 13 }
+            )
+        );
+        initMinHeap(heap, startingList);
+        heap.insert(11);
+        Integer[] expected = { 11, 11, 13, 12 };
+        for (int i = 0; i < 4; i++) {
+            assertEquals(
+                "Heap after inserting 11. ", 
+                expected[i], 
+                heap.data.get(i)
+            );
+        }
     }
 
     /** Test the MyMinHeap getMin function */
