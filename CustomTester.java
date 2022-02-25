@@ -91,7 +91,7 @@ public class CustomTester {
      */
     @Test
     public void testRemove(){
-        // You can test any method from MyStack or a combination of methods
+        
     }
 
   
@@ -100,6 +100,6 @@ public class CustomTester {
      */
     @Test
     public void testGetMin(){
-        // You can test any method from MyQueue or a combination of methods
+        
     }
 }
