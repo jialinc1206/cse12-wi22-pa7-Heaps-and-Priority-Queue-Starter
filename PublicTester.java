@@ -120,12 +120,12 @@ public class PublicTester {
         MyMinHeap<Integer> heap = new MyMinHeap<>();
         ArrayList<Integer> startingList = new ArrayList<Integer>(
             Arrays.asList(
-                new Integer[] { 5, 3, 2 }
+                new Integer[] { 5, 3, 4 }
             )
         );
         initMinHeap(heap, startingList);
-        assertEquals("Minimum child index of 0", 2, heap.getMinChildIdx(0));
-        Integer[] expected = { 5, 3, 2 };
+        assertEquals("Minimum child index of 0", 1, heap.getMinChildIdx(0));
+        Integer[] expected = { 5, 3, 4 };
         for (int i = 0; i < 3; i++) {
             assertEquals(
                     "Heap after getting minimum child index should be unchanged. ",
