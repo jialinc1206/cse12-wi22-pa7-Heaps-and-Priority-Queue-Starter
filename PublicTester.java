@@ -194,6 +194,11 @@ public class PublicTester {
                 heap.data.get(i)
             );
         }
+        assertEquals(
+            "Heap after deleting index 0 should have smaller size. ", 
+            6, 
+            heap.data.size()
+        );
     }
 
     /** Test the MyMinHeap insert function */
@@ -215,6 +220,11 @@ public class PublicTester {
                 heap.data.get(i)
             );
         }
+        assertEquals(
+            "Heap after inserting elements should have bigger size. ", 
+            4, 
+            heap.data.size()
+        );
     }
 
     /** Test the MyMinHeap getMin function */
