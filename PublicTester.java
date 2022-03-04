@@ -168,7 +168,7 @@ public class PublicTester {
         Integer[] expected = { 3, 4, 8, 5, 2 };
         for (int i = 0; i < 5; i++) {
             assertEquals(
-                "Heap after getting minimum child index should be unchanged. ", 
+                "Heap after getting minimum child index should be unchanged. " + heap.data, 
                 expected[i], 
                 heap.data.get(i)
             );

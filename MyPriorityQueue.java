@@ -1,25 +1,23 @@
 /**
- * TODO: Add your file header
- * Name:
- * ID:
- * Email:
- * Sources used: Put "None" if you did not have any external help
- * Some example of sources used would be Tutors, Zybooks, and Lecture Slides
+ * Name: Jialin Chen
+ * Email: jic053@ucsd.edu
+ * Sources used: comments from:
+ * https://docs.google.com/document/d/1t6_VxtZoaw8-LEL2aTbc5_ovkSZ4JTHCTH7_GdfShEg/edit
  * 
- * 2-4 sentence file description here
+ * a MyPriorityQueue.java file that already contains the 
+ * implementation of a Priority Queue using MyMinHeap
  */
 
 import java.util.Collection;
 
 /**
- * TODO: Add Class Header
+ * a priority queue class that contains core mehtods
+ * for it to function.
  */
 public class MyPriorityQueue<E extends Comparable<E>>
 {
 
-    //TODO: Add a public instance variable called "heap"
-    //"heap" is of a generic MyMinHeap type
-
+    public MyMinHeap<E> heap;
     
     /**
      * Constructor that creates an empty priority queue

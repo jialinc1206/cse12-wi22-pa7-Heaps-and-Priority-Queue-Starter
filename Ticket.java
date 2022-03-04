@@ -1,12 +1,10 @@
 /**
- * TODO: Add your file header
- * Name:
- * ID:
- * Email:
- * Sources used: Put "None" if you did not have any external help
- * Some example of sources used would be Tutors, Zybooks, and Lecture Slides
+ * Name: Jialin Chen
+ * Email: jic053@ucsd.edu
+ * Sources used: comments from:
+ * https://docs.google.com/document/d/1t6_VxtZoaw8-LEL2aTbc5_ovkSZ4JTHCTH7_GdfShEg/edit
  * 
- * 2-4 sentence file description here
+ * This file represents a Ticket in the Autograder Ticket System
  */
 
 import java.util.HashMap;
@@ -163,14 +161,20 @@ public class Ticket implements Comparable<Ticket>{
     }
     
     /**
-     * TODO: Method Header
+     * compares the priorty between two tickest.
      */
     @Override
     public int compareTo(Ticket other){
-        //TODO: Your code
+        int order1 = orderMap.get(this.ticketType);
+        int order2 = orderMap.get(other.getTicketType());
+        if(order1 > order2)
+            return 1;
+        if(order1 < order2)
+            return -1;
+        if(this.getCreatedAt() > other.getCreatedAt())
+            return 1;
+        if(this.getCreatedAt() < other.getCreatedAt())
+            return -1;
         return 0;
-
-    }
- 
-    
+    }  
 }
